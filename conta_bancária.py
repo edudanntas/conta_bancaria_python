@@ -9,6 +9,13 @@ def menu():
         => """
     return int(input(menu))
 
+def depositar_valor(valor, saldo, extrato):
+    if valor > 0:
+        saldo += valor
+        extrato += f"Depósito: R$ {valor:.2f}\n"
+    return saldo, extrato
+
+
 def main():
     saldo = 0
     limite = 500
@@ -17,14 +24,12 @@ def main():
     LIMITE_SAQUE = 3
 
     while True:
-        opcao = int(input(menu))
+        opcao = menu()
 
         if opcao == 1:
-            valor_deposito = float(input("Digite o valor que deseja despositar: "))
+            valor = float(input("Digite o valor que deseja despositar: "))
 
-            if valor_deposito > 0:
-                saldo += valor_deposito
-                extrato += f"Depósito: R$ {valor_deposito:.2f}\n"
+            saldo, extrato = depositar_valor(valor=valor, saldo=saldo, extrato=extrato)
 
         elif opcao == 2:
             valor_saque = float(input("Digite o valor que deseja sacar: "))
