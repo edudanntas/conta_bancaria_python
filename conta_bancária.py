@@ -94,9 +94,10 @@ def listar_contas(contas):
         lista = f"""
         Agencia:\t{conta["agencia"]}
         C/C:\t\t{conta["numero_conta"]}
-        Titular:\t{conta["usuario"]}
+        Titular:\t{conta["usuario"]["nome"]}
         """
         print("="*40)
+        print(lista)
 
 def main():
     AGENCIA = "0001"
@@ -107,7 +108,6 @@ def main():
     LIMITE_SAQUE = 3
     usuarios = []
     contas = []
-    numero_conta = 1
 
     while True:
         opcao = menu()
@@ -129,14 +129,14 @@ def main():
             criar_usuario(usuarios)
         
         elif opcao == 5:
+            numero_conta = len(contas) + 1
             conta = criar_conta(agencia=AGENCIA, numero_conta=numero_conta, usuarios=usuarios)
 
             if conta:
                 contas.append(conta)
-                numero_conta += 1
 
         elif opcao == 6:
-            listar_contas(contas=contas)
+            listar_contas(contas)
 
         elif opcao == 0:
             break
