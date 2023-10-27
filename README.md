@@ -9,7 +9,9 @@ Este é um simples projeto de conta bancária em Python que permite realizar ope
 - Depositar dinheiro na conta.
 - Sacar dinheiro da conta, com limites diários de saque.
 - Verificar o extrato da conta.
-- Sair do programa.
+- Criar um novo usuário.
+- Criar uma nova conta vinculada a um usuário.
+- Listar as contas cadastradas.
 
 
 ## Instruções de Uso
@@ -31,12 +33,15 @@ Este é um simples projeto de conta bancária em Python que permite realizar ope
     [1] - Depositar
     [2] - Sacar
     [3] - Extrato
+    [4] - Novo Usuário
+    [5] - Nova conta
+    [6] - Listar Usuários
     [0] - Sair
     ```
 
 4. Selecione a opção desejada digitando o número correspondente.
 
-5. Siga as instruções no console para realizar depósitos, saques ou verificar o extrato.
+5. Siga as instruções no console para realizar depósitos, saques, criar novos usuários, criar novas contas ou listar contas cadastradas.
 
     
 ## Requisitos
@@ -72,10 +77,29 @@ Logo abaixo está um exemplo de uso do projeto:
     ==================================
     ```
 
-4. Sair do programa:
+4. Criar um novo usuário:
+    ```bash
+    [4] - Novo Usuário
+    (Siga as instruções para fornecer informações do novo usuário)
+    ```
+
+5. Criar uma nova conta vinculada a um usuário:
+    ```bash
+    [5] - Nova conta
+    (Siga as instruções para vincular uma nova conta a um usuário)
+    ```
+
+6. Listar as contas cadastradas:
+    ```bash
+    [6] - Listar Usuários
+    (Listagem das contas cadastradas será exibida)
+    ```
+
+7. Sair do programa:
     ```bash
     [0] - Sair
     ```
+
 ## Contribuindo
 
 Se você deseja contribuir para este projeto, sinta-se à vontade para abrir problemas (issues) e enviar solicitações de pull (pull requests).
