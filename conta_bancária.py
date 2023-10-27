@@ -39,6 +39,12 @@ def sacar_valor(valor, saldo, limite, extrato, limite_saque, numero_saque):
     
     return saldo, extrato, numero_saque
 
+def mostrar_extrato(saldo, extrato):
+    print("\n=============EXTRATO============")
+    print("Não foram realizadas movimentações." if not extrato else extrato)
+    print(f"\nSaldo: R$ {saldo:.2f}")
+    print("==================================")
+
 def main():
     saldo = 0
     limite = 500
@@ -60,10 +66,7 @@ def main():
             saldo, extrato, numero_saque = sacar_valor(valor=valor, saldo=saldo, limite=limite, extrato=extrato, limite_saque=LIMITE_SAQUE, numero_saque=numero_saque)
 
         elif opcao == 3:
-            print("\n=============EXTRATO============")
-            print("Não foram realizadas movimentações." if not extrato else extrato)
-            print(f"\nSaldo: R$ {saldo:.2f}")
-            print("==================================")
+            mostrar_extrato(saldo=saldo, extrato=extrato)
 
         elif opcao == 0:
             break
