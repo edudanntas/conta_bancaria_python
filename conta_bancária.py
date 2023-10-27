@@ -89,6 +89,15 @@ def criar_conta(agencia, numero_conta, usuarios):
     
     print("Ops, usuário não encontrado")
 
+def listar_contas(contas):
+    for conta in contas:
+        lista = f"""
+        Agencia:\t{conta["agencia"]}
+        C/C:\t\t{conta["numero_conta"]}
+        Titular:\t{conta["usuario"]}
+        """
+        print("="*100)
+
 def main():
     AGENCIA = "0001"
     saldo = 0
@@ -127,14 +136,7 @@ def main():
                 numero_conta += 1
 
         elif opcao == 6:
-            for usuario in usuarios:
-                print("Usuário:", usuario["nome"])
-                print("CPF:", usuario["cpf"])
-                print("Contas vinculadas:")
-            for conta in usuario["contas"]:
-                print("Agência:", conta["agencia"])
-                print("Número da Conta:", conta["numero_conta"])
-                print("--------------------")
+            listar_contas(contas=contas)
 
         elif opcao == 0:
             break
