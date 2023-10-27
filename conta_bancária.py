@@ -84,7 +84,7 @@ def criar_conta(agencia, numero_conta, usuarios):
     usuario = filtrar_usuarios(cpf, usuarios)
 
     if usuario:
-        print("conta criata com sucesso")
+        print("conta criada com sucesso")
         return {"agencia": agencia, "numero_conta": numero_conta, "usuario": usuario}
     
     print("Ops, usuário não encontrado")
@@ -96,7 +96,7 @@ def listar_contas(contas):
         C/C:\t\t{conta["numero_conta"]}
         Titular:\t{conta["usuario"]}
         """
-        print("="*100)
+        print("="*40)
 
 def main():
     AGENCIA = "0001"
