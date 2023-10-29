@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod, abstractproperty
+from datetime import datetime
 
 class Cliente:
 
@@ -18,7 +20,6 @@ class PessoaFisica(Cliente):
         self.nome = nome
         self.cpf = cpf
         self.data_nascimento = data_nascimento
-
 
 class Conta: 
 
@@ -80,7 +81,6 @@ class Conta:
         
         return True
 
-
 class ContaCorrente(Conta):
     def __init__(self, numero, cliente, limite_saque=3, limite=500):
         super().__init__(numero, cliente)
@@ -138,7 +138,6 @@ class Transacao(ABC):
     def registrar(self, conta):
         pass
 
-
 class Sacar(Transacao):
     
     def __init__(self, valor):
@@ -153,7 +152,6 @@ class Sacar(Transacao):
 
         if sucesso_transacao:
             conta.historico.adicionar_transacao(self)
-
 
 class Desposito(Transacao):
     
