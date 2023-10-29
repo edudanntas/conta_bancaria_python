@@ -19,6 +19,70 @@ class PessoaFisica(Cliente):
         self.cpf = cpf
         self.data_nascimento = data_nascimento
 
+
+class Conta: 
+
+    def __init__(self, saldo, numero, agencia, cliente, historico):
+        self._saldo = saldo
+        self._numero = numero
+        self._agencia = agencia
+        self._cliente = cliente
+        self._historico = Historico()
+
+    @classmethod
+    def nova_conta(cls, cliente, numero):
+        return cls(numero, cliente)
+
+    @property
+    def saldo(self):
+        return self._saldo
+    
+    @property
+    def numero(self):
+        return self._numero
+    
+    @property
+    def agencia(self):
+        return self._agencia
+    
+    @property
+    def cliente(self):
+        return self._cliente
+    
+    @property
+    def historico(self):
+        return self._historico
+
+    def sacar(self, saldo, valor):
+        saldo = self._saldo
+        excedeu_saldo = valor > saldo
+
+        if excedeu_saldo:
+            print("Transação não completada, valor maior que saldo disponivel")
+
+        elif valor > 0:
+            self._saldo -= valor
+            print("\n Transação efetuada com sucesso")
+            return True
+        else:
+            print("operação falhou")
+            
+        return False
+    
+    def depositar(self, saldo, valor):
+        if valor > 0:
+            self._saldo += valor
+            print("Operação de despósito foi feita com sucesso")
+            
+        else:
+            print("O valor informado é invalido, tente novamente ")
+            return False
+        
+        return True
+
+
+
+
 def menu():
     menu = """
 
