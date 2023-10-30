@@ -177,7 +177,7 @@ def menu():
         [3] - Extrato
         [4] - Novo Usuário
         [5] - Nova conta
-        [6] - Listar Usuários
+        [6] - Listar contas
         [0] - Sair
 
         =>:  """
@@ -256,32 +256,23 @@ def mostrar_extrato(clientes):
     print(f"\nSaldo: \n\tR$ {conta.saldo:.2f}")
     print("=" *45)
 
-def criar_usuario(usuarios):
+def criar_cliente(clientes):
     cpf = input("Digite o seu CPF, apenas números: ")
-    usuario = filtrar_usuarios(cpf, usuarios)
+    cliente = filtrar_cliente(cpf, cliente)
 
-    if usuario:
-        print("Usuário já cadastrado")
+    if cliente:
+        print("Cliente Já existe em nossos sistemas")
         return
     
     nome = input("Digite o seu nome: ")
-    data_de_nascimento = input("Digite sua data de nascimento no formato DD/MM/AAAA: ")
-    endereco_usuario = {
-        "rua": input("Digite a Rua do endereço com numero: "),
-        "bairro": input("Digite o Bairro do endereço: "),
-        "cidade": input("Digite a Cidade do endereço: "),
-        "estado": input("Digite o Estado do endereço: ")
-    }
+    data_nascimento = input("Digite sua data de nascimento no formato DD-MM-AAAA: ")
+    endereco = input("Informe o endereço (logradouro, nro - bairro - cidade/sigla do estado: ")
 
-    novo_usuario = {
-        "nome": nome,
-        "data": data_de_nascimento,
-        "cpf": cpf,
-        "endereco": {}
-    }
+    cliente = PessoaFisica(nome=nome, cpf=cpf, data_nascimento=data_nascimento, endereco=endereco)
 
-    novo_usuario["endereco"] = endereco_usuario
-    usuarios.append(novo_usuario)
+    clientes.append(cliente)
+
+    print("Cliente Adicionado com sucesso")
 
 def criar_conta(numero_conta, clientes, contas):
     cpf = input("Digite o seu CPF, apenas números: ")
@@ -299,13 +290,8 @@ def criar_conta(numero_conta, clientes, contas):
 
 def listar_contas(contas):
     for conta in contas:
-        lista = f"""
-        Agencia:\t{conta["agencia"]}
-        C/C:\t\t{conta["numero_conta"]}
-        Titular:\t{conta["usuario"]["nome"]}
-        """
-        print("="*40)
-        print(lista)
+        print("=" *100)
+        print(conta)
 
 def main():
     clientes = []
@@ -324,14 +310,14 @@ def main():
             mostrar_extrato(clientes)
 
         elif opcao == 4:
-            pass
+            criar_cliente(clientes)
         
         elif opcao == 5:
             numero_conta = len(contas) + 1
             criar_conta(numero_conta, clientes, contas)
 
         elif opcao == 6:
-           pass
+           listar_contas(contas)
 
         elif opcao == 0:
             break
