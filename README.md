@@ -9,9 +9,10 @@ Este é um simples projeto de conta bancária em Python que permite realizar ope
 - Depositar dinheiro na conta.
 - Sacar dinheiro da conta, com limites diários de saque.
 - Verificar o extrato da conta.
-- Criar um novo usuário.
+- Criar um novo usuário (cliente).
 - Criar uma nova conta vinculada a um usuário.
 - Listar as contas cadastradas.
+- Registro de transações.
 
 
 ## Instruções de Uso
@@ -35,7 +36,7 @@ Este é um simples projeto de conta bancária em Python que permite realizar ope
     [3] - Extrato
     [4] - Novo Usuário
     [5] - Nova conta
-    [6] - Listar Usuários
+    [6] - Listar contas
     [0] - Sair
     ```
 
@@ -55,43 +56,37 @@ Logo abaixo está um exemplo de uso do projeto:
 1. Depositar dinheiro na conta:
     ```bash
     [1] - Depositar
-    Digite o valor que deseja depositar: 100.00
+    (Digite o seu CPF e o valor que deseja depositar)
     ```
 2. Sacar dinheiro da conta:
     ```bash
     [2] - Sacar
-    Digite o valor que deseja sacar: 50.00
-
+    (Digite o seu CPF e o valor que deseja sacar)
     ```
     Você pode receber mensagens de erro se tentar sacar mais do que o saldo disponível, exceder o limite diário de saque ou atingir o limite diário de saques.
 
 3. Verificar o extrato da conta:
     ```bash
     [3] - Extrato
-
-    =============EXTRATO============
-    Depósito: R$ 100.00
-    Saque: R$ 50.00
-
-    Saldo: R$ 50.00
-    ==================================
+    (Digite o seu CPF)
     ```
+    O extrato mostrará as transações registradas na conta.
 
-4. Criar um novo usuário:
+4. Criar um novo usuário (cliente):
     ```bash
     [4] - Novo Usuário
-    (Siga as instruções para fornecer informações do novo usuário)
+    (Siga as instruções para fornecer informações do novo cliente)
     ```
 
 5. Criar uma nova conta vinculada a um usuário:
     ```bash
     [5] - Nova conta
-    (Siga as instruções para vincular uma nova conta a um usuário)
+    (Digite o seu CPF para vincular a conta)
     ```
 
 6. Listar as contas cadastradas:
     ```bash
-    [6] - Listar Usuários
+    [6] - Listar contas
     (Listagem das contas cadastradas será exibida)
     ```
 
