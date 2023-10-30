@@ -183,7 +183,7 @@ def menu():
         =>:  """
     return int(input(menu))
 
-def depositar(cliente):
+def depositar(clientes):
     cpf = input("Digite o seu CPF, apenas números: ")
     cliente = filtrar_cliente(cpf, cliente)
 
@@ -200,35 +200,61 @@ def depositar(cliente):
     
     cliente.realizar_transacao(conta, transacao)
 
-def sacar_valor(valor, saldo, limite, extrato, limite_saque, numero_saque):
-    excedeu_saldo = valor > saldo
-    excedeu_limite = valor > limite
-    excedeu_saque = numero_saque >= limite_saque
+def filtrar_cliente(cpf, clientes):
+    clientes_filtrados = [cliente for cliente in clientes if cliente.cpf == cpf]
+    return clientes_filtrados[0] if clientes_filtrados else None
 
-    if excedeu_saldo:
-        print("Saque não realizado! Você não possui saldo suficiente")
+def recuperar_conta_cliente(cliente):
+    if not cliente.contas:
+        print("Cliente não possui conta :(")
+        return
+    return cliente.contas[0]
 
-    elif excedeu_limite:
-        print(
-            f"Saque não realizado! Valor informado ultrapassa o limite diário de: R$ {limite:.2f}")
-    elif excedeu_saque:
-        print("Saque não realizado! Seu limite diário de saques foi atingido")
+def sacar(clientes):
+    cpf = input("Digite o seu CPF, apenas números: ")
+    cliente = filtrar_cliente(cpf, cliente)
 
-    elif valor > 0:
-        saldo -= valor
-        extrato += f"Saque: R$ {valor:.2f}\n"
-        numero_saque += 1
-
-    else:
-        print("Saque não realizado! Valor informado para saque inválido")
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
     
-    return saldo, extrato, numero_saque
+    valor = float(input("Digite o valor que deseja sacar: "))
+    transacao = Sacar(valor)
 
-def mostrar_extrato(saldo, extrato):
-    print("\n=============EXTRATO============")
-    print("Não foram realizadas movimentações." if not extrato else extrato)
-    print(f"\nSaldo: R$ {saldo:.2f}")
-    print("==================================")
+    conta = recuperar_conta_cliente(cliente)
+
+    if not conta:
+        return
+    
+    conta.realizar_transacao(conta, transacao)
+
+def mostrar_extrato(clientes):
+    cpf = input("Digite o seu CPF, apenas números: ")
+    cliente = filtrar_cliente(cpf, cliente)
+
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
+    
+    conta = recuperar_conta_cliente(cliente)
+    if not conta:
+        return
+
+    print("\n================= EXTRATO =================")
+
+    transacoes = conta.historico.transacoes
+
+    extrato = ""
+
+    if not transacoes:
+        print("Não foram feitas movimentações")
+    else: 
+        for transacao in transacoes:
+            extrato += f"\n{transacao['tipo']}: \n\tR$ {transacao['valor']:.2f}"
+            
+    print(extrato)
+    print(f"\nSaldo: \n\tR$ {conta.saldo:.2f}")
+    print("=" *45)
 
 def criar_usuario(usuarios):
     cpf = input("Digite o seu CPF, apenas números: ")
@@ -256,20 +282,20 @@ def criar_usuario(usuarios):
 
     novo_usuario["endereco"] = endereco_usuario
     usuarios.append(novo_usuario)
-    
-def filtrar_usuarios(cpf, usuarios):
-    usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
-    return usuarios_filtrados[0] if usuarios_filtrados else None
 
-def criar_conta(agencia, numero_conta, usuarios):
+def criar_conta(numero_conta, clientes, contas):
     cpf = input("Digite o seu CPF, apenas números: ")
-    usuario = filtrar_usuarios(cpf, usuarios)
+    cliente = filtrar_cliente(cpf, cliente)
 
-    if usuario:
-        print("conta criada com sucesso")
-        return {"agencia": agencia, "numero_conta": numero_conta, "usuario": usuario}
+    if not cliente:
+        print("Cliente não encontrado!")
+        return
     
-    print("Ops, usuário não encontrado")
+    conta = ContaCorrente.nova_conta(cliente=cliente, numero=numero_conta)
+    contas.append(conta)
+    cliente.contas.append(conta)
+
+    print("Conta criada com sucesso")
 
 def listar_contas(contas):
     for conta in contas:
@@ -282,26 +308,27 @@ def listar_contas(contas):
         print(lista)
 
 def main():
-    cliente = []
+    clientes = []
     contas = []
 
     while True:
         opcao = menu()
 
         if opcao == 1:
-            depositar(cliente)
+            depositar(clientes)
 
         elif opcao == 2:
-            pass
+            sacar(clientes)
 
         elif opcao == 3:
-            pass
+            mostrar_extrato(clientes)
 
         elif opcao == 4:
             pass
         
         elif opcao == 5:
-            pass
+            numero_conta = len(contas) + 1
+            criar_conta(numero_conta, clientes, contas)
 
         elif opcao == 6:
            pass
