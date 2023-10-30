@@ -183,11 +183,22 @@ def menu():
         =>:  """
     return int(input(menu))
 
-def depositar_valor(valor, saldo, extrato):
-    if valor > 0:
-        saldo += valor
-        extrato += f"Depósito: R$ {valor:.2f}\n"
-    return saldo, extrato
+def depositar(cliente):
+    cpf = input("Digite o seu CPF, apenas números: ")
+    cliente = filtrar_cliente(cpf, cliente)
+
+    if not cliente:
+        print("Cliente não encontrado")
+        return
+    
+    valor = float(input("Digite aqui o valor que deseja depositar: "))
+    transacao = Desposito(valor)
+
+    conta = recuperar_conta_cliente(cliente)
+    if not conta:
+        return
+    
+    cliente.realizar_transacao(conta, transacao)
 
 def sacar_valor(valor, saldo, limite, extrato, limite_saque, numero_saque):
     excedeu_saldo = valor > saldo
@@ -271,43 +282,29 @@ def listar_contas(contas):
         print(lista)
 
 def main():
-    AGENCIA = "0001"
-    saldo = 0
-    limite = 500
-    extrato = ""
-    numero_saque = 0
-    LIMITE_SAQUE = 3
-    usuarios = []
+    cliente = []
     contas = []
 
     while True:
         opcao = menu()
 
         if opcao == 1:
-            valor = float(input("Digite o valor que deseja despositar: "))
-
-            saldo, extrato = depositar_valor(valor=valor, saldo=saldo, extrato=extrato)
+            depositar(cliente)
 
         elif opcao == 2:
-            valor = float(input("Digite o valor que deseja sacar: "))
-
-            saldo, extrato, numero_saque = sacar_valor(valor=valor, saldo=saldo, limite=limite, extrato=extrato, limite_saque=LIMITE_SAQUE, numero_saque=numero_saque)
+            pass
 
         elif opcao == 3:
-            mostrar_extrato(saldo=saldo, extrato=extrato)
+            pass
 
         elif opcao == 4:
-            criar_usuario(usuarios)
+            pass
         
         elif opcao == 5:
-            numero_conta = len(contas) + 1
-            conta = criar_conta(agencia=AGENCIA, numero_conta=numero_conta, usuarios=usuarios)
-
-            if conta:
-                contas.append(conta)
+            pass
 
         elif opcao == 6:
-            listar_contas(contas)
+           pass
 
         elif opcao == 0:
             break
